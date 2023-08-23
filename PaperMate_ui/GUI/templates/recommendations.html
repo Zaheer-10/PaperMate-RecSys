@@ -1,0 +1,167 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}RecommendedPapers{% endblock %}
+
+{% block details %}
+
+<style>
+    .loading-overlay {
+        display: none;
+        position: fixed;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        background-color: rgba(0, 0, 0, 0.5);
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        z-index: 1000;
+    }
+
+    .loading-spinner {
+        border: 6px solid #f3f3f3;
+        border-top: 6px solid #3498db;
+        border-radius: 50%;
+        width: 40px;
+        height: 40px;
+        animation: spin 2s linear infinite;
+    }
+
+    @keyframes spin {
+        0% {
+            transform: rotate(0deg);
+        }
+
+        100% {
+            transform: rotate(360deg);
+        }
+    }
+</style>
+
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <h1 class="mb-4 text-center text-white">Recommended Papers</h1>
+</header>
+
+<div class="container mt-5">
+    {% if search_error %}
+    <p class="lead text-center">"😢 Oops, something went wrong with your query or the search function. Please try again
+        later or contact the administrator. 🙏 Thank You!"</p>
+    <p class="text-center">Here are some suggestions to improve your query:</p>
+    <ul>
+        <li>Use keywords that are relevant to your topic of interest.</li>
+        <li>Use quotes to search for exact phrases, such as "machine learning".</li>
+        <li>Use boolean operators to combine or exclude terms, such as AND, OR, and NOT.</li>
+    </ul>
+    {% else %}
+
+    <p class="lead text-center">"🔍 Your Interests, Your Papers! 📚 Enjoy Learning and Visit Again. 🚀 Thank You!"</p>
+
+    <div class="row">
+        {% for paper in papers %}
+        <div class="col-md-12 mb-4">
+            <div class="card dark">
+                <div class="card-body">
+                    <div style="display: flex; align-items: flex-start;">
+                        <img src="https://imgs.search.brave.com/KPfQF-d5vwdpq53r367d0QOPwqsVzStxV7QNhfd7zvY/rs:fit:860:0:0/g:ce/aHR0cHM6Ly9pbmZv/LmFyeGl2Lm9yZy9i/cmFuZC9pbWFnZXMv/YnJhbmQtbG9nby1w/cmltYXJ5LmpwZw"
+                            class="card-img-top" alt="..." style="width: 50px; height: 50px; margin-right: 1em;">
+                        <div class="text-section">
+                            <h5 class="card-title"><strong class="glow">{{ paper.title }}</strong></h5>
+                            <p class="card-text">
+                                <span id="truncated-{{ paper.id }}">
+                                    {{ paper.abstract|truncatechars:150 }}
+                                </span>
+                                {% if paper.abstract|length > 150 %}
+                                <span id="collapse-link-{{ paper.id }}" style="display: inline;">
+                                    <a href="#" onclick="toggleCollapse('{{ paper.id }}'); return false;"
+                                        class="glow">Read more</a>
+                                </span>
+                                <span id="collapse-{{ paper.id }}" style="display: none;">
+                                    {{ paper.abstract }}
+
+
+                                    <a href="#" onclick="toggleCollapse('{{ paper.id }}'); return false;"
+                                        style="color: red;" class="glow">Close</a>
+                                </span>
+                                {% endif %}
+                            </p>
+                            <a href="{{ paper.url }}" class="btn custom-btn mt-3 glow" style="align-self: flex-start;"
+                                target="_blank">Read Full Paper</a>
+
+
+
+
+
+                            <!-- <div id="loadingOverlay" class="loading-overlay">
+                                <div class="loading-spinner"></div>
+                                <pre id="loadingText" class="text-dange"
+                                    style="font-weight: bolder;">Summarizing...</pre>
+                            </div> -->
+
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+    {% endif %}
+</div>
+
+<script>
+    function toggleCollapse(paperId) {
+        const collapseLink = document.getElementById(`collapse-link-${paperId}`);
+        const collapseContent = document.getElementById(`collapse-${paperId}`);
+        const truncatedContent = document.getElementById(`truncated-${paperId}`);
+
+        if (collapseLink && collapseContent && truncatedContent) {
+            if (collapseContent.style.display === "none") {
+                collapseLink.style.display = "none";
+                collapseContent.style.display = "inline";
+                truncatedContent.style.display = "none";
+            } else {
+                collapseLink.style.display = "inline";
+                collapseContent.style.display = "none";
+                truncatedContent.style.display = "inline";
+            }
+        }
+    }
+
+
+
+    function downloadAndRedirect() {
+        const downloadButton = document.getElementById('download_paper');
+        const paperId = downloadButton.getAttribute('data-paper-id');
+
+        fetch(`/download_paper/${paperId}/`)
+            .then(response => response.json())
+            .then(data => {
+                if (data.success) {
+                    // Redirect to talk2me.html after download
+                    window.location.href = '/path-to-talk2me.html';
+                } else {
+                    alert('PDF download failed.');
+                }
+            });
+    }
+
+</script>
+
+<script type="text/javascript">
+    // Add an entry to the browser's history
+    history.pushState({ fromHomeLink: false }, "", "");
+
+    // Disable the browser's back button
+    history.pushState(null, null, document.URL);
+    window.addEventListener('popstate', function () {
+        history.pushState(null, null, document.URL);
+    });
+
+    // Allow going back when clicking the home navigation link
+    document.querySelector('#home-link').addEventListener('click', function () {
+        history.back();
+    });
+</script>
+
+{% endblock %}

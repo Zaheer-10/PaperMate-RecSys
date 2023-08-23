@@ -1,0 +1,478 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+RecommendedPapers
+{% endblock %}
+
+{% block details %}
+<style>
+    /* Style for the additional buttons pop-up */
+    #additionalButtons {
+        position: absolute;
+        top: -5%;
+        right: 24%;
+        transform: translate(50%, -50%);
+        display: none;
+        z-index: 1;
+    }
+
+    /* Adjust the positioning of the stop and clear buttons */
+    #stopButton,
+    #clearButton {
+        flex-direction: column;
+        margin: 2px;
+
+    }
+
+    /* Adjust the icon size */
+    #stopButton i,
+    #clearButton i {
+        font-size: 1.2em;
+        display: inline;
+    }
+
+    .animated-error {
+        display: none;
+        animation-duration: 1s;
+        animation-fill-mode: forwards;
+        opacity: 0;
+    }
+
+    #errorMessage {
+        background-color: rgba(255, 5, 5, 0.439);
+        height: 50px;
+        color: whitesmoke;
+    }
+
+    @keyframes fadeInOut {
+
+        0%,
+        100% {
+            opacity: 0;
+        }
+
+        50% {
+            opacity: 1;
+        }
+    }
+</style>
+
+<section class="hero-section d-flex justify-content-center align-items-center" id="section_1">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-8 col-12 mx-auto">
+                {% if error_message %}
+                <div id="errorMessage" class="alert alert-danger animated-error text-center" role="alert">
+                    {{ error_message }}
+                </div>
+                {% endif %}
+                <h1 class="text-white text-center">Discover. Learn. Enjoy</h1>
+                <h6 class="text-center">No More Endless Searching - PaperMate Delivers the Perfect Papers!</h6>
+                <form method="post" action="{% url 'search_papers' %}" class="custom-form mt-4 pt-2 mb-lg-0 mb-5">
+                    <div class="input-group input-group-lg">
+                        <span class="input-group-text bi-search" id="basic-addon1"></span>
+                        {% csrf_token %}
+                        <input type="text" name="query" class="form-control" id="searchInput"
+                            placeholder="Search Something........" autocomplete="on" style="border: none !important;">
+                        <input type="hidden" id="recognizedText" name="recognized_text">
+                        <div id="additionalButtons">
+                            <button type="button" id="stopButton" class="btn btn-outline-warning btn-sm py-1 px-3"
+                                style="border-radius: 100%;">
+                                <i class="bi-stop"></i>
+                            </button>
+                            <button type="button" id="clearButton" class="btn btn-outline-danger btn-sm py-1 px-3"
+                                style="border-radius: 100%;">
+                                <i class="bi-x"></i>
+                            </button>
+                        </div>
+                        <button type="button" id="micButton" class="btn btn-outline-success btn-sm py-1 px-3"
+                            style="border-radius: 70%; margin-right: 4px;">
+                            <i class="bi-mic rounded-icon"></i>
+                        </button>
+                        <button type="submit" class="form-control" style="margin-left: 1rem;">Search</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+<section class="featured-section">
+    <div class="container">
+        <div class="row justify-content-center">
+
+            <div class="col-lg-4 col-12 mb-4 mb-lg-0">
+                <div class="custom-block bg-white shadow-lg">
+                    <a href="#">
+                        <div class="d-flex">
+                            <div>
+                                <h5 class="mb-2">Introducing PaperMate📜</h5>
+                                <p class="mb-0">👉 Get personalized machine learning paper recommendations. NLP-powered
+                                    for 4 top papers per interest, updated monthly with fresh arXiv data. Stay informed,
+                                    learn, and spark your projects.</p>
+                            </div>
+                            <span class="badge bg-design rounded-pill ms-auto"></span>
+                        </div>
+                        <img src=" {% static 'images/topics/undraw_Remote_design_team_re_urdx.png' %}"
+                            class="custom-block-image img-fluid" alt="">
+                    </a>
+                </div>
+            </div>
+
+            <div class="col-lg-6 col-12 d-flex align-items-center justify-content-center">
+                <div class="custom-block custom-block-overlay">
+                    <div class="d-flex flex-column h-100">
+                        <img src="{% static 'images/reading_paper.jpeg' %}" class="custom-block-image img-fluid" alt="">
+
+                        <div class="custom-block-overlay-text d-flex">
+                            <div>
+                                <h5 class="text-dark mb-2 text-center " style="margin-top:15px ;"><b>How to Use
+                                        PaperMate📜</b></h5>
+
+                                <p class="text-white" style="margin-top:20px ;">Eager to dive into the world of AI, ML,
+                                    NLP, DL &amp; computer vision?
+                                    <br><i>Just type in your topics</i>, give that search button a triumphant click, and
+                                    let PaperMate perform its enchanting feat – whisking you away to a realm of arXiv
+                                    wonders in mere seconds. <br>And guess what? We're not stopping here – more
+                                    treasures are on the horizon. <br> Get in touch, let's ride this cosmic wave
+                                    together! 🚀🔮
+                                </p>
+                            </div>
+                            <span class="badge bg-finance rounded-pill ms-auto"></span>
+                        </div>
+                        <div class="section-overlay"></div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section class="explore-section section-padding" id="section_2">
+    <div class="container">
+
+        <div class="col-12 text-center" id="recent_papers">
+            <h2 class="mb-4">Hot Picks: Latest Arxiv Research Contribution's</h1>
+        </div>
+
+    </div>
+    </div>
+    <div class="container-fluid">
+        <div class="row">
+            <ul class="nav nav-tabs" id="myTab" role="tablist">
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link active" id="ml-tab" data-bs-toggle="tab" data-bs-target="#ml-tab-pane"
+                        type="button" role="tab" aria-controls="ml-tab-pane" aria-selected="true">Machine
+                        Learning</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="nlp-tab" data-bs-toggle="tab" data-bs-target="#nlp-tab-pane"
+                        type="button" role="tab" aria-controls="nlp-tab-pane" aria-selected="false">Natural Language
+                        Processing</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="ai-tab" data-bs-toggle="tab" data-bs-target="#ai-tab-pane"
+                        type="button" role="tab" aria-controls="ai-tab-pane" aria-selected="false">Artificial
+                        Intelligence</button>
+                </li>
+
+                <li class="nav-item" role="presentation">
+                    <button class="nav-link" id="cv-tab" data-bs-toggle="tab" data-bs-target="#cv-tab-pane"
+                        type="button" role="tab" aria-controls="cv-tab-pane" aria-selected="false">Computer
+                        Vision</button>
+                </li>
+            </ul>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="row">
+            <div class="col-12">
+                <div class="tab-content" id="myTabContent">
+
+                    <!-- Machine learning -->
+                    <div class="tab-pane fade show active" id="ml-tab-pane" role="tabpanel" aria-labelledby="ml-tab"
+                        tabindex="0">
+                        <div class="row">
+                            {% for paper in ml_papers %}
+                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                <div
+                                    class="custom-block bg-white shadow-lg d-flex flex-column justify-content-between h-100">
+                                    <a href="{{ paper.link }}">
+                                        <div>
+                                            <h5 class="mb-2 text-dark"><a href="{{ paper.link }}">{{ paper.title }}</a>
+                                            </h5>
+                                            <p class="mb-0"></p>
+                                        </div>
+                                    </a>
+                                    <p>Authors: {{ paper.authors }}</p>
+                                    <p style="font-size: 16px;"><b>Date of Publish:</b> {{ paper.published_date }}</p>
+
+
+
+                                    <!-- You can add the image placeholder here -->
+                                    <!-- <img src="placeholder.jpg" alt="Image Placeholder"> -->
+                                    <img src="{% static 'images/reading1.jpg' %}" class="custom-block-image img-fluid"
+                                        alt="">
+
+                                    <div class="d-flex justify-content-center align-items-center mt-2">
+                                        <a href="{{ paper.link }}" class="btn btn-outline-info" target="_blank">Read Full Paper</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                    <!-- Natural Language Processing Papers -->
+
+                    <div class="tab-pane fade " id="nlp-tab-pane" role="tabpanel" aria-labelledby="nlp-tab"
+                        tabindex="0">
+                        <div class="row">
+                            {% for paper in nlp_papers %}
+                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                <div
+                                    class="custom-block bg-white shadow-lg d-flex flex-column justify-content-between h-100">
+                                    <a href="{{ paper.link }}">
+                                        <div>
+                                            <h5 class="mb-2 text-dark"><a href="{{ paper.link }}">{{ paper.title }}</a>
+                                            </h5>
+                                            <p class="mb-0"></p>
+                                        </div>
+                                    </a>
+                                    <p>Authors: {{ paper.authors }}</p>
+                                    <p style="font-size: 16px;"><b>Date of Publish:</b> {{ paper.published_date }}</p>
+
+
+                                    <!-- You can add the image placeholder here -->
+                                    <!-- <img src="placeholder.jpg" alt="Image Placeholder"> -->
+                                    <img src="{% static 'images/reading1.png' %}" class="custom-block-image img-fluid"
+                                        alt="">
+
+                                    <div class="d-flex justify-content-center align-items-center mt-2">
+                                        <a href="{{ paper.link }}" class="btn btn-outline-info" target="_blank">Read Full Paper</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+
+
+                    <!-- Artificial Intelligence Papers -->
+
+                    <div class="tab-pane fade " id="ai-tab-pane" role="tabpanel" aria-labelledby="ai-tab" tabindex="0">
+                        <div class="row">
+                            {% for paper in ai_papers %}
+                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                <div
+                                    class="custom-block bg-white shadow-lg d-flex flex-column justify-content-between h-100">
+                                    <a href="{{ paper.link }}">
+                                        <div>
+                                            <h5 class="mb-2 text-dark"><a href="{{ paper.link }}">{{ paper.title }}</a>
+                                            </h5>
+                                            <p class="mb-0"></p>
+                                        </div>
+                                    </a>
+                                    <p>Authors: {{ paper.authors }}</p>
+                                    <p style="font-size: 16px;"><b>Date of Publish:</b> {{ paper.published_date }}</p>
+
+
+                                    <!-- You can add the image placeholder here -->
+                                    <!-- <img src="placeholder.jpg" alt="Image Placeholder"> -->
+                                    <img src="{% static 'images/topics/undraw_Remote_design_team_re_urdx.png' %}"
+                                        class="custom-block-image img-fluid" alt="">
+
+                                    <div class="d-flex justify-content-center align-items-center mt-2">
+                                        <a href="{{ paper.link }}" class="btn btn-outline-info" target="_blank">Read Full Paper</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+
+
+                    <!-- Computer Vision Papers -->
+
+                    <div class="tab-pane fade " id="cv-tab-pane" role="tabpanel" aria-labelledby="-tab" tabindex="0">
+                        <div class="row">
+                            {% for paper in cv_papers %}
+                            <div class="col-lg-4 col-md-6 col-12 mb-4 mb-lg-0">
+                                <div
+                                    class="custom-block bg-white shadow-lg d-flex flex-column justify-content-between h-100">
+                                    <a href="{{ paper.link }}">
+                                        <div>
+                                            <h5 class="mb-2 text-dark"><a href="{{ paper.link }}">{{ paper.title }}</a>
+                                            </h5>
+                                            <p class="mb-0"></p>
+                                        </div>
+                                    </a>
+                                    <p>Authors: {{ paper.authors }}</p>
+                                    <p style="font-size: 16px;"><b>Date of Publish:</b> {{ paper.published_date }}</p>
+
+
+                                    <!-- You can add the image placeholder here -->
+                                    <!-- <img src="placeholder.jpg" alt="Image Placeholder"> -->
+                                    <img src="{% static 'images/reading3.png' %}" class="custom-block-image img-fluid"
+                                        alt="">
+
+                                    <div class="d-flex justify-content-center align-items-center mt-2">
+                                        <a href="{{ paper.link }}" class="btn btn-outline-info" target="_blank">Read Full Paper</a>
+                                    </div>
+                                </div>
+                            </div>
+                            {% endfor %}
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section class="timeline-section section-padding" id="working">
+    <div class="section-overlay"></div>
+
+    <div class="container">
+        <div class="row">
+
+            <div class="col-12 text-center">
+                <h2 class="text-white mb-4">How does it work?</h1>
+            </div>
+
+            <div class="col-lg-10 col-12 mx-auto">
+                <div class="timeline-container">
+                    <ul class="vertical-scrollable-timeline" id="vertical-scrollable-timeline">
+                        <div class="list-progress">
+                            <div class="inner"></div>
+                        </div>
+
+                        <li>
+                            <h4 class="text-white mb-3">Share Your Interest</h4>
+
+                            <p class="text-white"> Imagine you're telling PaperMate what you're curious about – like
+                                Large Language Models, Transformers, or understanding languages better. <i>Try to give
+                                    Better prompt. </i> </p>
+
+                            <div class="icon-holder">
+                                <i class="bi-search"></i>
+                            </div>
+                        </li>
+
+                        <li>
+                            <h4 class="text-white mb-3">The Smart Brainy Bit</h4>
+
+                            <p class="text-white"> PaperMate gets to work, like a detective with superpowers. It reads
+                                research papers and what you're interested in. It connects the dots between what you
+                                want to know and what's written in the papers.</p>
+                            <div class="icon-holder">
+                                <i class="bi-bookmark"></i>
+                            </div>
+                        </li>
+
+                        <li>
+                            <h4 class="text-white mb-3">Sparkling Selections</h4>
+
+                            <p class="text-white">Brace yourself for the revelation! PaperMate presents you with four
+                                dazzling papers. These aren't random picks; they're handpicked gems that align
+                                harmoniously with your expressed passion. And guess what? Each comes with a sneak peek
+                                (the abstract) and a bridge (links) to deeper knowledge.</p>
+                            <div class="icon-holder">
+                                <i class="bi-book"></i>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<script>
+    const searchInput = document.getElementById('searchInput');
+    const micButton = document.getElementById('micButton');
+    const stopButton = document.getElementById('stopButton');
+    const clearButton = document.getElementById('clearButton');
+    const additionalButtons = document.getElementById('additionalButtons');
+
+    if ('SpeechRecognition' in window || 'webkitSpeechRecognition' in window) {
+        const SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+        const recognition = new SpeechRecognition();
+
+        recognition.continuous = true;
+
+        recognition.onresult = (event) => {
+            const transcript = event.results[event.results.length - 1][0].transcript;
+            searchInput.value = transcript;
+            document.getElementById('recognizedText').value = transcript;
+        };
+
+        recognition.onend = () => {
+            micButton.classList.remove('active');
+        };
+
+        micButton.addEventListener('click', () => {
+            if (!recognition.recognizing) {
+                micButton.classList.add('active');
+                additionalButtons.style.display = 'block';
+                recognition.start();
+            } else {
+                micButton.classList.remove('active');
+                additionalButtons.style.display = 'none';
+                recognition.stop();
+            }
+        });
+
+        stopButton.addEventListener('click', () => {
+            recognition.stop();
+            micButton.classList.remove('active');
+            additionalButtons.style.display = 'none';
+        });
+
+        clearButton.addEventListener('click', () => {
+            searchInput.value = '';
+        });
+    } else {
+        micButton.disabled = true;
+    }
+
+
+    // Show the error message and apply the fadeInOut animation
+    const errorMessage = document.getElementById('errorMessage');
+    if (errorMessage) {
+        errorMessage.style.display = 'block';
+        errorMessage.style.animationName = 'fadeInOut';
+        errorMessage.style.animationIterationCount = '3';
+        errorMessage.style.animationTimingFunction = 'ease-in-out';
+        errorMessage.style.animationPlayState = 'running';
+
+        // Hide the error message after 5 seconds
+        setTimeout(() => {
+            errorMessage.style.animationName = 'fadeInOut';
+            errorMessage.style.animationIterationCount = '3';
+            errorMessage.style.animationTimingFunction = 'ease-in-out';
+            errorMessage.style.animationPlayState = 'running';
+
+            // Wait for the animation to complete before hiding the element
+            setTimeout(() => {
+                errorMessage.style.display = 'none';
+            }, 1000);
+        }, 5000); // 5000 milliseconds = 5 seconds
+    }
+
+
+</script>
+
+{% endblock %}
