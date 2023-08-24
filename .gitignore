@@ -24,6 +24,10 @@ share/python-wheels/
 *.egg-info/
 .installed.cfg
 *.egg
+
+Models
+
+LaMini-Flan-T5-248M
 MANIFEST
 kaggletoken
 .env
