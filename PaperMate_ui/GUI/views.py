@@ -21,11 +21,14 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from transformers import T5Tokenizer, T5ForConditionalGeneration
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 
+#display
+import base64
+
 load_dotenv()
 
 # Text-Summarization Models
-# checkpoint = r"C:\Users\soulo\MACHINE_LEARNING\PaperMate\PaperMate_ui\GUI\LaMini-Flan-T5-248M"
-checkpoint = Path.cwd() / "LaMini-Flan-T5-248M"
+checkpoint = r"C:\Users\soulo\MACHINE_LEARNING\PaperMate\PaperMate_ui\GUI\LaMini-Flan-T5-248M"
+# checkpoint = Path.cwd() / "LaMini-Flan-T5-248M"
 tokenizer = T5Tokenizer.from_pretrained(checkpoint , local_files_only=True)
 base_model = T5ForConditionalGeneration.from_pretrained(checkpoint , local_files_only=True)
 pipe_sum = pipeline('summarization', model=base_model, tokenizer=tokenizer, max_length=512, min_length=50)
@@ -238,3 +241,63 @@ def summarize_paper(request, paper_id):
             'suggestions': suggestions,
         }
         return render(request, 'recommendation.html', context)
+    
+    
+# -----------------------------------------Display Paper---------------------------
+# def display(request,paper_id):
+#     paper = get_object_or_404(Paper, ids=paper_id)
+#     if paper.pdf_content:
+#         pdf_base64 = base64.b64encode(paper.pdf_content).decode("utf-8")
+#         context = {
+#             'pdf_base64': pdf_base64,
+#             'paper' : paper}
+#         return render(request, 'display.html', context)
+ 
+#     pdf_url = f"https://arxiv.org/pdf/{paper.ids}.pdf"
+#     response = requests.get(pdf_url)
+#     pdf_content = response.content
+#     pdf_base64 = base64.b64encode(pdf_content).decode("utf-8")
+#     paper.pdf_content = pdf_content
+#     paper.save()
+    
+
+#     print("Got pdf_base64:", pdf_base64[:100])
+
+#     context = {
+#         'pdf_base64': pdf_base64,
+#         'paper' : paper}
+    
+        
+#     return render(request, 'display.html', context)
+def display(request, paper_id):
+    paper = get_object_or_404(Paper, ids=paper_id)
+    
+    if paper.pdf_content:
+        pdf_base64 = base64.b64encode(paper.pdf_content).decode("utf-8")
+    else:
+        pdf_url = f"https://arxiv.org/pdf/{paper.ids}.pdf"
+        try:
+            response = requests.get(pdf_url)
+            response.raise_for_status() 
+            pdf_content = response.content
+            
+            paper.pdf_content = pdf_content
+            paper.save()
+            
+            pdf_base64 = base64.b64encode(pdf_content).decode("utf-8")
+        except requests.RequestException as e:
+            error_message = f"Oops, something went wrong: {str(e)}"
+            context = {
+                'search_error': True,
+                'error_message': error_message,
+            }
+            return render(request, 'recommendation.html', context)
+
+        
+    # Prepare the context for rendering the PDF content
+    context = {
+        'pdf_base64': pdf_base64,
+        'paper': paper,
+    }
+    
+    return render(request, 'display.html', context)
