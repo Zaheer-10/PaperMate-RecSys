@@ -244,32 +244,17 @@ def summarize_paper(request, paper_id):
     
     
 # -----------------------------------------Display Paper---------------------------
-# def display(request,paper_id):
-#     paper = get_object_or_404(Paper, ids=paper_id)
-#     if paper.pdf_content:
-#         pdf_base64 = base64.b64encode(paper.pdf_content).decode("utf-8")
-#         context = {
-#             'pdf_base64': pdf_base64,
-#             'paper' : paper}
-#         return render(request, 'display.html', context)
- 
-#     pdf_url = f"https://arxiv.org/pdf/{paper.ids}.pdf"
-#     response = requests.get(pdf_url)
-#     pdf_content = response.content
-#     pdf_base64 = base64.b64encode(pdf_content).decode("utf-8")
-#     paper.pdf_content = pdf_content
-#     paper.save()
-    
-
-#     print("Got pdf_base64:", pdf_base64[:100])
-
-#     context = {
-#         'pdf_base64': pdf_base64,
-#         'paper' : paper}
-    
-        
-#     return render(request, 'display.html', context)
 def display(request, paper_id):
+    """
+    Retrieve and render recommended research paper summaries for display on the summarization page.
+
+    Args:
+        request (HttpRequest): The HTTP request made by the user (summarize).
+        paper_id (int): Identifier for the specific paper being summarized (corresponding Paper ID).
+
+    Returns:
+        HttpResponse: The rendered HTML content displaying the summarized research paper.
+    """
     paper = get_object_or_404(Paper, ids=paper_id)
     
     if paper.pdf_content:
@@ -292,9 +277,7 @@ def display(request, paper_id):
                 'error_message': error_message,
             }
             return render(request, 'recommendation.html', context)
-
         
-    # Prepare the context for rendering the PDF content
     context = {
         'pdf_base64': pdf_base64,
         'paper': paper,
