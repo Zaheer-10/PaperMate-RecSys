@@ -1,0 +1,22 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+View Paper
+{% endblock %}
+
+{% block details %}
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <h1 class="mb-4 text-center text-white">Take a Look at the Paper🔍</h1>
+</header>   
+<div class="content-container text-center">
+    <h3><pre class="section-title text-dark mt-3 font-size-large"><b>{{paper.title}}🔖</b></pre></h3>
+<div class="text-center accordion-body mt-3">
+    <object data="data:application/pdf;base64,{{ pdf_base64 }}" width="80%" height="800" type="application/pdf">
+    </object>
+</div>
+        <p class="text-bg-warning">If the content did not load, it's possible that there might be an issue stemming from the fact that your browser does not provide support for the embedding of PDF files. You can still <a href="https://arxiv.org/pdf/{{ paper.ids }}.pdf" target="_blank">click here to view the PDF</a>.</p>
+</div>
+
+
+{% endblock %}
