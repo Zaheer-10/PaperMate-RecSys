@@ -19,9 +19,8 @@ class Paper(models.Model):
         if cls.objects.exists():
             print("Data already populated.")
             return
-        
-        csv_file_path = Path(r"C:\Users\soulo\PaperMate\data\Filtered_arxiv_papers.csv")
 
+        csv_file_path = Path(r"C:\Users\soulo\PaperMate\data\Filtered_arxiv_papers.csv")
         # Check if the CSV file exists
         if csv_file_path.exists():
             with open(csv_file_path, 'r' , encoding='utf-8') as file:

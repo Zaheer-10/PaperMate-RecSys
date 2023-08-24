@@ -1,0 +1,67 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}Summarization{% endblock %}
+{% block details %}
+<style>
+    .content-container {
+        max-width: 70%;
+        margin-top: 2rem;
+        margin: 0 auto;
+        padding: 30px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0px 6px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .title {
+        margin-top: 0;
+        font-size: 32px;
+        color: #35424a;
+    }
+
+    .section-title {
+        margin-top: 25px;
+        font-size: 24px;
+        color: #35424a;
+    }
+
+    .paragraph {
+        margin: 15px 0;
+        font-size: 18px;
+        line-height: 1.6;
+    }
+
+    .code-block {
+        background-color: #f4f4f4;
+        padding: 20px;
+        border-radius: 8px;
+        overflow-x: auto;
+        font-size: 16px;
+        line-height: 1.4;
+        white-space: pre-wrap;
+    }
+</style>
+
+
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <h1 class="mb-4 text-center text-white">Paper Summarization</h1>
+</header>
+
+<div class="content-container">
+
+    <h2 class="section-title text-center"> Brief Summary📜 On: <b>{{paper.title}}🔖</b></h2>
+    {% if search_error %}
+    <p class="error-message">{{ error_message }}</p>
+    <h3 class="section-title">Suggestions:</h3>
+    <ul class="suggestions">
+        {% for suggestion in suggestions %}
+        <li>{{ suggestion }}</li>
+        {% endfor %}
+    </ul>
+    {% else %}
+    <pre
+        class="code-block">Get ready to unravel the mysteries of advanced research! This arXiv paper opens the door to revolutionary discoveries that are reshaping our understanding of complex concepts.<br><b>{{paper.title}}</b> : {{ result }}<br>Cheers to the Minds at Work! A heartfelt salute to the dedicated researchers who authored this paper. Your relentless pursuit of knowledge is inspiring, and your contributions to expanding our horizons are truly appreciated. Thank you for sharing your brilliance with the world!</pre>
+    <hr>
+    {% endif %}
+</div>
+{% endblock %}

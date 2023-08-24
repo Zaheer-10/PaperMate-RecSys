@@ -87,7 +87,7 @@ DATABASES = {
         'ENGINE': 'django.db.backends.postgresql',
         'NAME': 'arxiv_papers',      # Database name
         'USER': 'postgres',          # Database user
-        'PASSWORD': 'PaperMate',     # Database password
+        'PASSWORD': 'root',     # Database password
         'HOST': 'localhost',         # Database host (localhost in this case)
         'PORT': '',              # Database port (default PostgreSQL port)
     }

@@ -8,6 +8,7 @@ urlpatterns = [
     path('', views.index, name='index'),  # Home page
     path('search/', views.search_papers, name='search_papers'), 
     path('recommendations/', views.recommendations, name='recommendations'), 
+    path('summarize/<str:paper_id>/', views.summarize_paper, name='summarize_paper'),
 ]
 
 # Serve static files during development
