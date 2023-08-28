@@ -1,0 +1,63 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}Talk2Me🗣️{% endblock %}
+
+{% block details %}
+
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <h1 class="mb-4 text-center text-white">Talk2Me🗣️</h1>
+    <a href="{% url 'chatbot_response'  %}" class="btn btn-dark mt-3 glow">Chat Now</a>
+</header>
+<div class='mt-3' style="display: flex; justify-content: center; align-items: center;">
+    <div
+        style="width: 90%; max-width: 90%; border: 2px solid #ccc; border-radius: 10px; padding: 20px; box-shadow: 5px 5px 10px #888;">
+        <h3 style="text-align: center; color: #333;">Chat with the Paper and Discover from PaperMate, the Research Paper
+            Chatbot</h3>
+        <div style="display: flex; justify-content: space-between;">
+            <div style="width: 50%; margin-right: 10px;">
+                <p style="text-align: justify; font-size: 18px; line-height: 1.5; color: #444;">
+                    Welcome to the research paper chatbot page, where you can chat with the paper and discover its main
+                    insights and contributions. You can access the PDF of the paper on this page, and read its sections,
+                    such as the abstract, introduction, methods, results, discussion, and conclusion. You can also click
+                    on the “Ask here” button at the bottom of the page, which will take you to the chatting page, where
+                    you can enter your question and get an answer from PaperMate, our research paper chatbot, based on
+                    the paper. PaperMate is built using advanced natural language processing and machine learning
+                    techniques, and can answer questions related to the paper’s theme, content, and references. You can
+                    also ask PaperMate to give you a summary of the paper, generate a citation for it, or suggest
+                    related papers for further reading. PaperMate is a handy tool for helping you comprehend the paper
+                    better and learn more about its research domain. We hope you enjoy this interactive experience and
+                    find it useful for your academic or personal interests.
+                </p>
+            </div>
+            <div style="width: 40%; margin-left: 10px;">
+                <img src=" {% static 'images/chatbot_demo.png' %}" alt="An example of a chat image" width="100%"
+                    height="auto">
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="mt-4" style="display: flex; justify-content: center; align-items: center;">
+    <div
+        style="width: 80%; max-width: 90%; border: 2px solid #ccc; border-radius: 10px; padding: 20px; box-shadow: 5px 5px 10px #888;">
+
+        <h3 style="text-align: center; color: #333;">Native Document Viewer</h3>
+
+        <embed class="" src="data:application/pdf;base64,{{ pdf_base64 }}" width="100%" height="800"
+            style="border: none;" type="application/pdf">
+        <a href="{% url 'chatbot_response'  %}" class="btn custom-btn mt-3 glow "
+            style="align-self: auto; width: 150px; height: 50px; border: none; border-radius: 5px; background-color: #333; color: #fff; font-size: 20px; cursor: pointer;"
+            target="_blank">Ask here</a>
+    </div>
+</div>
+
+<div class="alert alert-warning text-center mt-3" role="alert" style="width: 100%;">
+    <strong>Attention:</strong> If the PDF is not visible, please verify your internet connection or <a
+        class="text-danger" href="https://arxiv.org/pdf/{{ paper.ids }}.pdf" class="alert-link"> click here</a> to
+    access the original paper.
+</div>
+
+<hr class="mt-4">
+
+{% endblock %}

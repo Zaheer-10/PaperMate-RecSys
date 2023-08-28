@@ -7,6 +7,10 @@ mlruns
 *.so
  .vscode/settings.json
 # Distribution / packaging
+
+db/*
+check.py
+GUI/source_documents/*.pdf
 .Python
 build/
 develop-eggs/
