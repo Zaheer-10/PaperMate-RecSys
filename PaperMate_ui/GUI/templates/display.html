@@ -4,7 +4,6 @@
 {% block title %}
 View Paper
 {% endblock %}
-
 {% block details %}
 <header class="site-header d-flex flex-column justify-content-center align-items-center">
     <h1 class="mb-4 text-center text-white">Take a Look at the Paper🔍</h1>
@@ -15,8 +14,9 @@ View Paper
     <object data="data:application/pdf;base64,{{ pdf_base64 }}" width="80%" height="800" type="application/pdf">
     </object>
 </div>
-        <p class="text-bg-warning">If the content did not load, it's possible that there might be an issue stemming from the fact that your browser does not provide support for the embedding of PDF files. You can still <a href="https://arxiv.org/pdf/{{ paper.ids }}.pdf" target="_blank">click here to view the PDF</a>.</p>
 </div>
-
+<div class="alert alert-warning text-center mt-3" role="alert" style="width: 100%;">
+  <strong>Attention:</strong> If the PDF is not visible, please verify your internet connection or <a class="text-danger" href="https://arxiv.org/pdf/{{ paper.ids }}.pdf" class="alert-link"> click here</a> to access the original paper.
+</div>
 
 {% endblock %}
