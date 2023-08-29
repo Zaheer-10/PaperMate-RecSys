@@ -1,0 +1,92 @@
+{% extends "base.html" %}
+{% load static %}
+
+{% block title %}
+About us
+{% endblock %}
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.3/css/all.min.css">
+{% block details %}
+
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <h1 class="mb-4 text-center text-white font-weight-bolder">About PaperMate</h1>
+</header>   
+
+
+  <style>
+    body {
+      background-color: #f8f9fa;
+    }
+.card {
+      border: none;
+      border-radius: 15px;
+      box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    }
+    .card-contact ul li {
+      margin-bottom: 10px;
+      display: flex;
+      align-items: center;
+    }
+    .card-contact ul li i {
+      font-size: 18px;
+      color:#000;
+      margin-right: 10px;
+    }
+  </style>  
+  <div class="container mt-5">
+    <div class="row">
+      <div class="col-md-8">
+        <h2 class="text-dark text-center ">Welcome to PaperMate!</h2>
+        <p>The ultimate machine learning (NLP) project that helps you find, read, and enjoy the best papers in your field. Forget about wasting time on searching - PaperMate knows exactly what you need!</p>
+        <p>PaperMate has a simple and elegant home page where you can enter your topic of interest using text or voice input. You can also check out the newest arXiv papers on machine learning, NLP, AI, and computer vision, sorted by different categories. PaperMate also explains how it uses smart algorithms to recommend the most suitable papers for you.</p>
+        <p>When you type or say your topic of interest, PaperMate will show you four papers that match your query. For each paper, you can see the abstract and use four handy features:</p>
+        <ul>
+          <li>Read full paper: This button will take you to the original arXiv paper where you can read it from start to finish.</li>
+          <li>Summarize here: This button will create a short summary of the paper for you. It may take a few moments if the paper summary is not already in our database, otherwise it will show up right away.</li>
+          <li>Take a look at the paper: This button will let you view and explore the paper on PaperMate itself. You can zoom in, scroll, and highlight the parts that catch your eye.</li>
+          <li>Talk to me: This button will lead you to the chat page where you can have a conversation with the paper in a natural and friendly way. PaperMate will answer your questions and give you more insights about the paper.</li>
+        </ul>
+        <p>These are the core features and backbone of the PaperMate project. But wait, there’s more! We also have an about section where you can learn more about us and our mission. We also have a visual demonstration of how each operation and task works behind the scenes, so you can appreciate the magic of PaperMate.</p>
+      </div>
+      
+      <div class="col-md-4">
+        <div class="card mb-4">
+        <img src="{% static 'images/PaperMate_icon.png' %}" alt=""class="card-img-top"alt="" width="150" height="100">
+
+          <div class="card-body">
+            <h5 class="card-title text-center">Open Git Source</h5>
+            <p class="card-text">Kindly consider exploring the Git repository associated with the paper, if you would.Additionally, if you find it appealing, I encourage you to grant it a star.</p>
+            <a  class= "btn btn-sm-dark "https://github.com/yourusername" target="_blank"><i class="fab fa-github mr-5 align-content-center "></i></a></li> </div>
+        </div>
+<div class="card">
+          <div class="card-body">
+            <h5 class="card-title">Visual Demonstration</h5>
+            <p class="card-text">See how each operation and task works behind the scenes.</p>
+            <a href="{% url 'architecture'  %}" class="btn btn-primary">Watch Demo</a>
+          </div>
+        </div>
+ <div class="card mt-4">
+          <div class="card-body card-contact">
+            <h5 class="card-title">Contact Us</h5>
+            <ul class="list-unstyled">
+              <li><i class="fas fa-user mr-2"></i>Zaheer K Z</li>
+              <!-- <li><a href="tel:+1234567890"><i class="fas fa-phone mr-2"></i>(123) 456-7890</a></li> -->
+              <li><a href="mailto:zaheer.work24@gmail.com"><i class="fas fa-envelope mr-2"></i>zaheer.work24@gmail.com</a></li>
+              <li><a href="https://github.com/yourusername" target="_blank"><i class="fab fa-github mr-2"></i>GitHub Repo</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+<hr>
+
+<hr class='mt-5' style="height: 5px; border: none; background-color: black;">
+
+
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.9.1/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+
+{% endblock %}

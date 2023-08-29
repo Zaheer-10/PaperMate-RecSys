@@ -1,0 +1,147 @@
+{% extends "base.html" %}
+{% load static %}
+{% block title %}
+BluePrint
+{% endblock %}
+{% block details %}
+
+<style>
+    .card-title {
+        text-align: center !important;
+        font-weight: bolder;
+        background: linear-gradient(to right, #1481a5, #045c62);
+        -webkit-background-clip: text;
+        background-clip: text;
+        color: transparent;
+    }
+    .modal-title {
+        text-align: center !important
+    }
+
+    .card-body {
+        background-color: rgb(255, 255, 255);
+        border-radius: 100%;
+    }
+
+    .card-img-top {
+        width: 100%;
+        height: 15vw;
+        object-fit: cover;
+    }
+
+    .custom-card {
+        max-width: 90%;
+        margin: 0 auto;
+        margin-top: 50px;
+    }
+
+    .custom-card-body {
+        text-align: center;
+    }
+</style>
+
+<header class="site-header d-flex flex-column justify-content-center align-items-center">
+    <h1 class="mb-4 text-center text-white font-weight-bold fs-3">Unveiling the Blueprint: Inside the Architecture of
+        PaperMate</h1>
+</header>
+<div class="container">
+    <div class="custom-card">
+        <div class="custom-card-body">
+            <p>Think of it as opening a secret door to see how PaperMate really works. We're like detectives, figuring
+                out the cool stuff it can do. It's a bit like looking inside a toy to understand how it makes sounds and
+                lights up. So, get ready to explore the inside world of PaperMate – we're going on a journey to find out
+                what makes it awesome! 🕵️‍♂️🔍</p>
+        </div>
+    </div>
+</div>
+<div class="container mt-4 text-cente align-content-center">
+    <div class="row " id="imageRow">
+        <!-- Images will be displayed here -->
+    </div>
+</div>
+<div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-xl" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title text-center" id="imageTitle"></h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <img src="" id="modalImage" class="img-fluid" alt="">
+            </div>
+        </div>
+    </div>
+</div>
+
+<hr class='mt-5' style="height: 5px; border: none; background-color: black;">
+
+<script>
+    const imageRow = document.getElementById("imageRow");
+    const imageModal = document.getElementById("imageModal");
+    const modalImage = document.getElementById("modalImage");
+    const imageTitle = document.getElementById("imageTitle");
+
+    function openModal(title, imageUrl) {
+        imageTitle.innerText = title;
+        modalImage.src = imageUrl;
+        imageModal.classList.add("show");
+        imageModal.style.display = "block";
+    }
+
+    function closeModal() {
+        imageModal.classList.remove("show");
+        imageModal.style.display = "none";
+    }
+
+    function createCard(title, thumbnailUrl, fullsizeUrl) {
+        const card = document.createElement("div");
+        card.className = "col-md-4";
+
+        const cardInner = document.createElement("div");
+        cardInner.className = "card mb-4 shadow-sm";
+
+        const imageLink = document.createElement("a");
+        imageLink.href = "#";
+        imageLink.setAttribute("data-toggle", "modal");
+        imageLink.setAttribute("data-target", "#imageModal");
+        imageLink.onclick = () => openModal(title, fullsizeUrl);
+
+        const thumbnailImage = document.createElement("img");
+        thumbnailImage.src = thumbnailUrl;
+        thumbnailImage.className = "card-img-top";
+        thumbnailImage.alt = title;
+
+        const cardBody = document.createElement("div");
+        cardBody.className = "card-body";
+
+        const cardTitle = document.createElement("h5");
+        cardTitle.className = "card-title";
+        cardTitle.innerText = title;
+
+        imageLink.appendChild(thumbnailImage);
+        cardBody.appendChild(cardTitle);
+        cardInner.appendChild(imageLink);
+        cardInner.appendChild(cardBody);
+        card.appendChild(cardInner);
+
+        return card;
+    }
+
+    const images = [
+        { title: "Data Collection", thumbnailUrl: "{% static 'images/data_collection_svg.excalidraw.svg' %}", fullsizeUrl: "{% static 'images/data_collection_svg.excalidraw.svg' %}" },
+        { title: "EDA & Data Pre-processing", thumbnailUrl: "{% static 'images/eda_datapreprocessing.excalidraw.svg' %}", fullsizeUrl: "{% static 'images/eda_datapreprocessing.excalidraw.svg' %}" },
+        { title: "Embeddings", thumbnailUrl: "{% static 'images/embeddings.svg' %}", fullsizeUrl: "{% static 'images/embeddings.svg' %}" },
+        { title: "Paper Recommendation", thumbnailUrl: "{% static 'images/recommendation.svg' %}", fullsizeUrl: "{% static 'images/recommendation.svg' %}" },
+        { title: "Summarization", thumbnailUrl: "{% static 'images/summarization.svg' %}", fullsizeUrl: "{% static 'images/summarization.svg' %}" },
+        { title: "Question Answering System", thumbnailUrl: "{% static 'images/qa.svg' %}", fullsizeUrl: "{% static 'images/qa.svg' %}" },
+    ];
+
+    images.forEach(image => {
+        const card = createCard(image.title, image.thumbnailUrl, image.fullsizeUrl);
+        imageRow.appendChild(card);
+    });
+</script>
+
+{% endblock %}
