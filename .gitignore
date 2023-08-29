@@ -7,7 +7,7 @@ mlruns
 *.so
  .vscode/settings.json
 # Distribution / packaging
-
+check.py
 db/*
 check.py
 GUI/source_documents/*.pdf
