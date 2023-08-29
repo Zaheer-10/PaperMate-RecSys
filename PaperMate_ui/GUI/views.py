@@ -599,4 +599,23 @@ def extract_id_from_path(file_path):
     else:
         return None
     
+# ----------------------------------------------About---------------------------------------------------------------------------------------
+
+def about(request):  
+    """
+    Render the 'About' page of the Django web application.
+    
+    Args:
+        request (HttpRequest): The HTTP request made by the user.
+    
+    Returns:
+        HttpResponse: The rendered HTML content of the 'About' page.
+    """
+    return render(request, 'about.html')
+
+
+# -----------------------------------------------architecture---------------------------------------------------
+def architecture(request):
+    return render(request , 'architecture.html')
+
 # -------------------------------------------------END---------------------------------------------------------------------------------------------------------------
