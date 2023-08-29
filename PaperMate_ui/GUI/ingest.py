@@ -115,6 +115,7 @@ def load_documents(source_dir: str, ignored_files: List[str] = []) -> List[Docum
     return results
 
 
+#Used One
 def process_documents(ignored_files: List[str] = []) -> List[Document]:
     """
     Load documents and split in chunks
@@ -136,17 +137,27 @@ def process_documents(ignored_files: List[str] = []) -> List[Document]:
 def does_vectorstore_exist(persist_directory: str) -> bool:
     """
     Checks if vectorstore exists
+    Args:
+        persist_directory (str): The directory to check for the vector store.
+
+    Returns:
+        bool: True if the vector store exists, False otherwise.
     """
+    # Check if the 'index' directory exists within the given persist directory
     if os.path.exists(os.path.join(persist_directory, 'index')):
+        # Check if both 'chroma-collections.parquet' and 'chroma-embeddings.parquet' files exist
         if os.path.exists(os.path.join(persist_directory, 'chroma-collections.parquet')) and os.path.exists(os.path.join(persist_directory, 'chroma-embeddings.parquet')):
+            
+            # Use glob to search for '.bin' and '.pkl' files within the 'index' directory
             list_index_files = glob.glob(
                 os.path.join(persist_directory, 'index/*.bin'))
             list_index_files += glob.glob(
                 os.path.join(persist_directory, 'index/*.pkl'))
             # At least 3 documents are needed in a working vector store
             if len(list_index_files) > 3:
-                return True
-    return False
+                return True   # Vector store is considered to exist
+
+    return False  # Vector store doesn't exist or doesn't meet the criteria
 
 
 def main():  # sourcery skip: extract-method, remove-redundant-f string
