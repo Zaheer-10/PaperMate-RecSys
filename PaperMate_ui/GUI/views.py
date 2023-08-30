@@ -41,17 +41,34 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from .ingest import process_documents, does_vectorstore_exist
+from transformers import AutoModelForCausalLM
+
 
 load_dotenv()
 
-# Text-Summarization Models
-checkpoint = r"C:\Users\soulo\MACHINE_LEARNING\PaperMate\PaperMate_ui\GUI\LaMini-Flan-T5-248M"
-# checkpoint = Path.cwd() / "LaMini-Flan-T5-248M"
-tokenizer = T5Tokenizer.from_pretrained(checkpoint , local_files_only=True)
-base_model = T5ForConditionalGeneration.from_pretrained(checkpoint , local_files_only=True)
-pipe_sum = pipeline('summarization', model=base_model, tokenizer=tokenizer, max_length=512, min_length=50)
+# # Text-Summarization Models
+# checkpoint = r"C:\Users\soulo\MACHINE_LEARNING\PaperMate\PaperMate_ui\GUI\LaMini-Flan-T5-248M"
+# # checkpoint = Path.cwd() / "LaMini-Flan-T5-248M"
+# tokenizer = T5Tokenizer.from_pretrained(checkpoint , local_files_only=True)
+# base_model = T5ForConditionalGeneration.from_pretrained(checkpoint , local_files_only=True)
+# pipe_sum = pipeline('summarization', model=base_model, tokenizer=tokenizer, max_length=512, min_length=50)
+
+checkpoint = "MBZUAI/LaMini-Flan-T5-248M"
+tokenizer = T5Tokenizer.from_pretrained(checkpoint)
+base_model = T5ForConditionalGeneration.from_pretrained(checkpoint)
+pipe_sum = pipeline(
+    'summarization',
+    model=base_model,
+    tokenizer=tokenizer,
+    max_length=512,
+    min_length=50
+)
+
 
 # QA Requirements
+
+# model_path = AutoModelForCausalLM.from_pretrained("nomic-ai/gpt4all-j", revision="v1.3-groovy")
+
 #env
 persist_directory = os.environ.get('PERSIST_DIRECTORY')
 source_directory = os.environ.get('SOURCE_DIRECTORY', 'source_documents')
