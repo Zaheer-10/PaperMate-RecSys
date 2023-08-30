@@ -1,5 +1,5 @@
 <center>
-  <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/PaperMate_animated.gif" alt="PaperMate-logo" align="middle">
+  <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/main_banner.png" alt="PaperMate-logo" align="middle">
 </center>
 
 ## What is PaperMate?
