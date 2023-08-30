@@ -10,7 +10,8 @@ mlruns
 check.py
 db/*
 check.py
-PaperMate_ui/GUI/source_documents/*.pdf
+# PaperMate_ui/GUI/source_documents/*.pdf
+structure.txt
 .Python
 build/
 develop-eggs/
