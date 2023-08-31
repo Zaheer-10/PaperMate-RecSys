@@ -1,6 +1,9 @@
 <center>
   <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/main_banner.png" alt="PaperMate-logo" align="middle">
+  
 </center>
+
+![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/Zaheer-10/PaperMate-RecSys)
 
 ## What is PaperMate?
 
