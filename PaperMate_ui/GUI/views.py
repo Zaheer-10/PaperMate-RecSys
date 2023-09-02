@@ -53,16 +53,17 @@ load_dotenv()
 # base_model = T5ForConditionalGeneration.from_pretrained(checkpoint , local_files_only=True)
 # pipe_sum = pipeline('summarization', model=base_model, tokenizer=tokenizer, max_length=512, min_length=50)
 
-checkpoint = "MBZUAI/LaMini-Flan-T5-248M"
-tokenizer = T5Tokenizer.from_pretrained(checkpoint)
-base_model = T5ForConditionalGeneration.from_pretrained(checkpoint)
-pipe_sum = pipeline(
-    'summarization',
-    model=base_model,
-    tokenizer=tokenizer,
-    max_length=512,
-    min_length=50
-)
+# checkpoint = "MBZUAI/LaMini-Flan-T5-248M"
+# tokenizer = T5Tokenizer.from_pretrained(checkpoint)
+# base_model = T5ForConditionalGeneration.from_pretrained(checkpoint)
+# pipe_sum = pipeline(
+#     'summarization',
+#     model=base_model,
+#     tokenizer=tokenizer,
+#     max_length=512,
+#     min_length=50
+# )
+pipe_sum = pipeline("summarization", model="MBZUAI/LaMini-Flan-T5-248M" ,max_length = 512 ,min_length=50 )
 
 
 # QA Requirements
