@@ -30,7 +30,6 @@ share/python-wheels/
 .installed.cfg
 *.egg
 .PaperMate_env
-Models
 
 LaMini-Flan-T5-248M
 MANIFEST
@@ -40,7 +39,6 @@ kaggletoken
 data
 .ipynb_checkpoints
 __pycache__
-Models
 migrations
 # PyInstaller
 #  Usually these files are written by a python script from a template
@@ -129,8 +127,6 @@ celerybeat.pid
 
 # SageMath parsed files
 *.sage.py
-Models
-Models/.
 # Environments
 .env
 .venv
@@ -188,8 +184,6 @@ PaperMate_ui/GUI/LaMini-Flan-T5-248M/
 # OSX
 .DS_STORE
 
-# Models
-models/
 
 # Local Chroma db
 .chroma/
