@@ -366,3 +366,7 @@ req.txt
 start.sh
 data
 structure.txt
+../.vscode/
+requirements.txt
+../data/
+../structure.txt
