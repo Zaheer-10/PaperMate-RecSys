@@ -11,6 +11,10 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 import os
 from pathlib import Path
+from dotenv import load_dotenv
+
+# Load environment variables from .env file
+load_dotenv()
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -20,12 +24,16 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/4.2/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "django-insecure-b_iee&p0-ts^r0qql=lf&p)89!(x&h9q#1akhy_3z5c6xh_hox"
+# SECRET_KEY = "django-insecure-b_iee&p0-ts^r0qql=lf&p)89!(x&h9q#1akhy_3z5c6xh_hox"
+SECRET_KEY = os.environ.get('SECRET_KEY')
+
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = []
+# ALLOWED_HOSTS = []
+ALLOWED_HOSTS = ['*' , "localhost", "0.0.0.0", "127.0.0.1"]
+
 
 
 # Application definition
@@ -82,17 +90,43 @@ WSGI_APPLICATION = "PaperMate_ui.wsgi.application"
 # }
 
 
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': 'arxiv_papers',      # Database name
+#         'USER': 'postgres',          # Database user
+#         'PASSWORD': 'root',     # Database password
+#         'HOST': 'localhost',         # Database host (localhost in this case)
+#         'PORT': '',              # Database port (default PostgreSQL port)
+#     }
+# }
+
+
+# Database settings
+# DATABASES = {
+#     'default': {
+#         'ENGINE': 'django.db.backends.postgresql',
+#         'NAME': os.environ.get('DB_NAME', 'default_db_name'),
+#         'USER': os.environ.get('DB_USER', 'default_db_user'),
+#         'PASSWORD': os.environ.get('DB_PASSWORD', 'default_db_password'),
+#         'HOST': 'localhost',
+#         'PORT': '5432',
+#     }
+# }
+# DB_HOST = os.environ.get('HOST', 'localhost')
+
+
+# Database settings
 DATABASES = {
     'default': {
-        'ENGINE': 'django.db.backends.postgresql',
-        'NAME': 'arxiv_papers',      # Database name
-        'USER': 'postgres',          # Database user
-        'PASSWORD': 'root',     # Database password
-        'HOST': 'localhost',         # Database host (localhost in this case)
-        'PORT': '',              # Database port (default PostgreSQL port)
+        "ENGINE": "django.db.backends.postgresql",
+        "NAME": os.environ.get("SQL_NAME"),
+        "USER": os.environ.get("SQL_USER"),
+        "PASSWORD": os.environ.get("SQL_PASSWORD"),
+        "HOST": os.environ.get('HOST'),
+        "PORT": os.environ.get("PORT")
     }
 }
-
 
 
 # Password validation
