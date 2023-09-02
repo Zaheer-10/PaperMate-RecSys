@@ -34,7 +34,6 @@ share/python-wheels/
 LaMini-Flan-T5-248M
 MANIFEST
 kaggletoken
-.env
 .vscode
 data
 .ipynb_checkpoints
@@ -128,9 +127,7 @@ celerybeat.pid
 # SageMath parsed files
 *.sage.py
 # Environments
-.env
 .venv
-env/
 venv/
 ENV/
 env.bak/
@@ -311,9 +308,9 @@ celerybeat.pid
 *.sage.py
 
 # Environments
-.env
+
 .venv
-env/
+
 venv/
 ENV/
 env.bak/
