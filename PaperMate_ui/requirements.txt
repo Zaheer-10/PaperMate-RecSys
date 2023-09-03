@@ -45,5 +45,3 @@ torchvision==0.15.2
 tqdm
 transformers==4.31.0
 gunicorn
-pip3 install dvc==2.58.2
-pip3 install dvc-s3
