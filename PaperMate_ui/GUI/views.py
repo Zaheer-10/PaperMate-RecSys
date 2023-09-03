@@ -42,33 +42,12 @@ from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from .ingest import process_documents, does_vectorstore_exist
 from transformers import AutoModelForCausalLM
+import urllib.request
 
 
 load_dotenv()
 
-# # Text-Summarization Models
-# checkpoint = r"C:\Users\soulo\MACHINE_LEARNING\PaperMate\PaperMate_ui\GUI\LaMini-Flan-T5-248M"
-# # checkpoint = Path.cwd() / "LaMini-Flan-T5-248M"
-# tokenizer = T5Tokenizer.from_pretrained(checkpoint , local_files_only=True)
-# base_model = T5ForConditionalGeneration.from_pretrained(checkpoint , local_files_only=True)
-# pipe_sum = pipeline('summarization', model=base_model, tokenizer=tokenizer, max_length=512, min_length=50)
-
-# checkpoint = "MBZUAI/LaMini-Flan-T5-248M"
-# tokenizer = T5Tokenizer.from_pretrained(checkpoint)
-# base_model = T5ForConditionalGeneration.from_pretrained(checkpoint)
-# pipe_sum = pipeline(
-#     'summarization',
-#     model=base_model,
-#     tokenizer=tokenizer,
-#     max_length=512,
-#     min_length=50
-# )
 pipe_sum = pipeline("summarization", model="MBZUAI/LaMini-Flan-T5-248M" ,max_length = 512 ,min_length=50 )
-
-
-# QA Requirements
-
-# model_path = AutoModelForCausalLM.from_pretrained("nomic-ai/gpt4all-j", revision="v1.3-groovy")
 
 #env
 persist_directory = os.environ.get('PERSIST_DIRECTORY')
@@ -106,11 +85,6 @@ def index(request):
     nlp_papers = RecentPaper.objects.filter(category='cs.LG').order_by("-published_date")[:3]
     ai_papers = RecentPaper.objects.filter(category='cs.AI').order_by("-published_date")[:3]
     cv_papers = RecentPaper.objects.filter(category='cs.CV').order_by("-published_date")[:3]
-
-    # print("ML Papers Count:", ml_papers.count())
-    # print("NLP Papers Count:", nlp_papers.count())
-    # print("AI Papers Count:", ai_papers.count())
-    # print("CV Papers Count:", cv_papers.count())
     
     context = {
         'ml_papers': ml_papers,
@@ -132,11 +106,9 @@ def search_papers(request):
     Returns:
         HttpResponse: The rendered HTML content showing recommended research papers based on the user's query.
     """
-    try:
-        # Setting up paths for pre-trained models and data.
-        PATH_SENTENCES = Path.cwd() / "Models/Sentences"
-        PATH_EMBEDDINGS = Path.cwd() / "Models/Embeddings"
-
+    try:                
+        embeddings_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "PaperMate_ui", "GUI", "embedded_models", "Embeddings", "Embeddings.pkl")
+        sentences_path = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(__file__))), "PaperMate_ui", "GUI", "embedded_models", "Sentences", "Sentences.pkl")
 
         if request.method == 'POST':
             # Retrieving user input and recognized speech.
@@ -153,9 +125,7 @@ def search_papers(request):
             
             # Load pre-trained SentenceTransformer model
             model = SentenceTransformer('all-MiniLM-L6-v2')
-            embeddings_path = PATH_EMBEDDINGS / "Embeddings.pkl"
-            sentences_path = PATH_SENTENCES / "Sentences.pkl"
-            
+                        
             # Load pre-calculated sentence embeddings
             with open(sentences_path, 'rb') as f:
                 sentences_data = pickle.load(f)
@@ -182,8 +152,7 @@ def search_papers(request):
             return render(request, 'recommendations.html', {'papers': recommended_papers, 'recommended_papers': recommended_papers, 'search_error': search_error})
             
     except Exception as e:
-        # print( f"An error occurred: {str(e)}")
-        # Handle exceptions gracefully and provide an error message
+        print( f"An error occurred: {str(e)}")
         return render(request, 'index.html', {'error_message': f"An error occurred: {str(e)}"})
     
     return render(request, 'index.html')
