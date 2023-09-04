@@ -118,7 +118,7 @@ The project report is available [here](). It provides a detailed explanation of 
 
 #### Open your termial (conda)
 
-#### Clone the repo replace your folder name with test_mate
+#### Clone the repo and replace your folder name with 'test_mate'
 ```bash
 git clone https://github.com/Zaheer-10/PaperMate-RecSys.git test_mate
 ```
@@ -126,57 +126,54 @@ git clone https://github.com/Zaheer-10/PaperMate-RecSys.git test_mate
 ```bash
 cd test_mate
 ```
-
+#### Create a Conda environment for PaperMate
 ```bash
 conda create -n tmate python==3.10 -y
-
 ```
+#### Activate env
 ```bash
 conda activate tmate
-
 ```
+#### Install required Python packages
 ```bash
 pip install -r requirements.txt
 
 ```
+
 ```bash
 cd PaperMate_ui
 ```
-#### Go to settings.py and connect to your postgresql db
-
+#### Configure settings.py to connect to your PostgreSQL database
 
 ```bash
 run `python manage.py fetch_arxiv_data.py` or else do it in jupyter notebook and save csv file.
 ```
+#### Populate the database with data
 
 ```bash
 python manage.py populate_data.py
 ```
-
+#### Generate embeddings
 ```bash
 python manage.py generate_embeddings.py
 
 ```
-
+#### Apply database migrations
 ```bash
 python manage.py makemigrations
-```
-
-```bash
 python manage.py migrate
 ```
+
+#### Create a superuser for the admin panel
 ```bash
 python manage.py createsuperuser
 ```
+#### Run the PaperMate server
 
 ```bash
 python manage.py runserver
 ```
 ##### Note : It may take some amount of time intially , make sure your connected to the valid internet connection.
-
-
-
-![Usage Guide](https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/How2use.svg)
 
 
 ## Future Possibilities
