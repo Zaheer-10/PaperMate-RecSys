@@ -3,7 +3,15 @@
   
 </center>
 
+&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
+![Python](https://img.shields.io/badge/python-v3.10.8-blue.svg)
+![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
+[![GitHub Issues](https://img.shields.io/github/issues/Zaheer-10/PaperMate-RecSys.svg)](https://github.com/Zaheer-10/PaperMate-RecSys/issues)
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/Zaheer-10/PaperMate-RecSys)
+![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
+[![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
+![](https://img.shields.io/github/stars/Zaheer-10/PaperMate-RecSys.svg) 
+![](https://img.shields.io/github/forks/Zaheer-10/PaperMate-RecSys.svg) 
 
 ## What is PaperMate?
 
