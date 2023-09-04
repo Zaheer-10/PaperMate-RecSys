@@ -112,6 +112,11 @@ PaperMate's architecture encompasses several essential components to create a se
 
 The project report is available [here](). It provides a detailed explanation of the methodologies used, results obtained, and conclusions drawn from this project.
 
+## Making Sense of It All: A User's Guide to this GitHub Repository
+
+![Usage Guide](https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/How2use.svg)
+
+
 ## Future Possibilities
 
 Continual improvements might include:
@@ -132,7 +137,6 @@ In conclusion, PaperMate is not just a project—it's a transformational tool th
 Thank you for embarking on this journey with us.
 
 Discover, Engage, Illuminate—Welcome to PaperMate.
-
 
 <p align="center">
   Want to experience the magic of PaperMate? Visit our website!
