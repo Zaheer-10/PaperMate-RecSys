@@ -28,6 +28,7 @@ import base64
 import os
 import time
 import shutil
+from tqdm import tqdm
 from urllib.parse import urlparse
 from django.core.cache import cache
 from django.http import JsonResponse
@@ -41,8 +42,6 @@ from transformers import T5Tokenizer, T5ForConditionalGeneration
 from langchain.text_splitter import RecursiveCharacterTextSplitter
 from langchain.embeddings import HuggingFaceEmbeddings
 from .ingest import process_documents, does_vectorstore_exist
-from transformers import AutoModelForCausalLM
-import urllib.request
 
 
 load_dotenv()
@@ -66,7 +65,6 @@ model_n_batch = int(os.environ.get('MODEL_N_BATCH',8))
 target_source_chunks = int(os.environ.get('TARGET_SOURCE_CHUNKS',4))
 
 # -------------------------------------------------------Home page------------------------------------------------------------------------------------
-
 def index(request):
     
     """
@@ -93,7 +91,6 @@ def index(request):
         'cv_papers': cv_papers,
     }
     return render(request, 'index.html', context)
-
 
 # ----------------------------------------------search_papers-------------------------------------------------------------------------------------------
 def search_papers(request):
@@ -157,10 +154,7 @@ def search_papers(request):
     
     return render(request, 'index.html')
 
-
-
 # ----------------------------------------------Recommendations-----------------------------------------------------------------------------------------
-
 def recommendations(request):
     """
     Retrieve and render all research paper recommendations for display on the recommendations page.
@@ -171,13 +165,10 @@ def recommendations(request):
     Returns:
         HttpResponse: The rendered HTML content displaying all recommended research papers.
     """
-    
-    # Retrieving all papers from the 'Paper' model.
     papers = Paper.objects.all()
     return render(request, 'recommendations.html', {'papers': papers})
 
 # -------------------------------------Summarization----------------------------------------------------------------------------------------------------
-
 def dynamic_chunk_text(text, max_chunk_size):
     chunks = []
     chunk_start = 0
@@ -265,7 +256,6 @@ def summarize_paper(request, paper_id):
         }
         return render(request, 'recommendation.html', context)
     
-    
 # -----------------------------------------Display Paper---------------------------------------------------------------------------------------------------
 def display(request, paper_id):
     """
@@ -309,7 +299,16 @@ def display(request, paper_id):
     return render(request, 'display.html', context)
 
 # ----------------------------------------------------------------------Q&A--------------------------------------------------------------------------------
-
+def create_empty_folder(folder_path):
+    folder_name = "source_documents"
+    full_path = os.path.join(folder_path, folder_name)
+    try:
+        os.mkdir(full_path)
+        print(f"Folder '{full_path}' created successfully.")
+    except FileExistsError:
+        print(f"Folder '{full_path}' already exists.")
+        
+        
 def get_pdf_filename(paper_id):
     """
     Return the filename of the PDF file corresponding to a given paper ID.
@@ -351,6 +350,34 @@ def delete_db(paper_id):
     if os.path.exists(db_folder_path):
         shutil.rmtree(db_folder_path)
         print("Deleted the 'db' ")    
+        
+def create_directory_if_not_exists(directory_path):
+    if not os.path.exists(directory_path):
+        os.makedirs(directory_path)
+                
+def download_bin_file(url, destination):
+    if os.path.exists(destination):
+        print(f"File '{destination}' already exists. Skipping download.")
+        return
+    try:
+        print("Downloading model it may take some time")    
+        response = requests.get(url, stream=True)
+        total_size = int(response.headers.get('content-length', 0))
+
+        with open(destination, 'wb') as file, tqdm(
+                desc=destination,
+                total=total_size,
+                unit='B',
+                unit_scale=True,
+                unit_divisor=1024,
+        ) as bar:
+            for data in response.iter_content(chunk_size=1024):
+                file.write(data)
+                bar.update(len(data))
+
+        print(f"File downloaded and saved to '{destination}' successfully.")
+    except Exception as e:
+        print(f"An error occurred: {str(e)}")
 
 def is_pdf_file_present(directory, pdf_filename):
     """
@@ -366,6 +393,15 @@ def is_pdf_file_present(directory, pdf_filename):
     full_path = os.path.join(directory, pdf_filename)
     return os.path.exists(full_path)
 
+file_url = "https://gpt4all.io/models/ggml-gpt4all-j-v1.3-groovy.bin"
+directory_path = "GUI"
+print("creating models folder")
+create_empty_folder(directory_path)
+models_directory = os.path.join(directory_path, "models")
+create_directory_if_not_exists(models_directory)
+local_destination = os.path.join(models_directory, "ggml-gpt4all-j-v1.3-groovy.bin")
+download_bin_file(file_url, local_destination)
+
 def download_paper(request, paper_id):
     """
     Download the PDF file of a given paper from arXiv and render it on the talk2me page.
@@ -377,14 +413,14 @@ def download_paper(request, paper_id):
     Returns:
         HttpResponse: The rendered HTML content displaying the PDF file of the paper.
     """
-    pdf_filename = get_pdf_filename(paper_id)
+    pdf_filename = get_pdf_filename(paper_id)    
     file_path = Path.cwd() / "GUI" / "source_documents"
     if is_pdf_file_present(file_path, pdf_filename):
         print("PDF file already exists. Skipping download.")
     else:
         delete_all_documents(file_path)
         delete_db(pdf_filename)
-        
+    
     paper = get_object_or_404(Paper, ids=paper_id)
     print("Downloading X...")
     pdf_url = f"https://arxiv.org/pdf/{paper_id}.pdf"
@@ -433,7 +469,6 @@ def ingest():
     Returns:
         None: The function does not return anything, but prints a message when the ingestion is complete.
     """
-    
     # Create an instance of HuggingFaceEmbeddings with the specified model name
     embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
 
@@ -477,11 +512,8 @@ def readFileContent():
     model_n_ctx = os.environ.get('MODEL_N_CTX')
     model_n_batch = int(os.environ.get('MODEL_N_BATCH', 8))
     target_source_chunks = int(os.environ.get('TARGET_SOURCE_CHUNKS', 4))
-
-    # Construct the absolute path to the model based on the Django project's root directory
-    base_path = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))  
-    model_relative_path = "GUI/models/ggml-gpt4all-j-v1.3-groovy.bin"
-    model_path = os.path.join(base_path, model_relative_path)
+    
+    model_path = "GUI/models/ggml-gpt4all-j-v1.3-groovy.bin"
 
     embeddings = HuggingFaceEmbeddings(model_name=embeddings_model_name)
     db = Chroma(persist_directory=persist_directory, embedding_function=embeddings, client_settings=CHROMA_SETTINGS)
