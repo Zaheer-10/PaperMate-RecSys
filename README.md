@@ -114,6 +114,68 @@ The project report is available [here](). It provides a detailed explanation of 
 
 ## Making Sense of It All: A User's Guide to this GitHub Repository
 
+
+
+#### Open your termial (conda)
+
+#### Clone the repo replace your folder name with test_mate
+```bash
+git clone https://github.com/Zaheer-10/PaperMate-RecSys.git test_mate
+```
+
+```bash
+cd test_mate
+```
+
+```bash
+conda create -n tmate python==3.10 -y
+
+```
+```bash
+conda activate tmate
+
+```
+```bash
+pip install -r requirements.txt
+
+```
+```bash
+cd PaperMate_ui
+```
+#### Go to settings.py and connect to your postgresql db
+
+
+```bash
+run `python manage.py fetch_arxiv_data.py` or else do it in jupyter notebook and save csv file.
+```
+
+```bash
+python manage.py populate_data.py
+```
+
+```bash
+python manage.py generate_embeddings.py
+
+```
+
+```bash
+python manage.py makemigrations
+```
+
+```bash
+python manage.py migrate
+```
+```bash
+python manage.py createsuperuser
+```
+
+```bash
+python manage.py runserver
+```
+##### Note : It may take some amount of time intially , make sure your connected to the valid internet connection.
+
+
+
 ![Usage Guide](https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/How2use.svg)
 
 
