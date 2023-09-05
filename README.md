@@ -120,7 +120,7 @@ The project report is available [here](). It provides a detailed explanation of 
 
 #### Clone the repo and replace your folder name with 'test_mate'
 ```bash
-git clone https://github.com/Zaheer-10/PaperMate-RecSys.git test_mate
+git lfs clone https://github.com/Zaheer-10/PaperMate-RecSys.git test_mate
 ```
 
 ```bash
