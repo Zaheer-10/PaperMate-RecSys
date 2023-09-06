@@ -107,7 +107,7 @@ PaperMate's architecture encompasses several essential components to create a se
 
 ## Report
 
-The project report is available [here](). It provides a detailed explanation of the methodologies used, results obtained, and conclusions drawn from this project.
+The project report is available [here](https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/PaperMate_Report.pdf). It provides a detailed explanation of the methodologies used, results obtained, and conclusions drawn from this project.
 
 ## Making Sense of It All: A User's Guide to this GitHub Repository
 
