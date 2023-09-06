@@ -1,12 +1,9 @@
 <center>
   <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/main_banner.png" alt="PaperMate-logo" align="middle">
-  
 </center>
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![Python](https://img.shields.io/badge/python-v3.10.8-blue.svg)
-![Dependencies](https://img.shields.io/badge/dependencies-up%20to%20date-brightgreen.svg)
-[![GitHub Issues](https://img.shields.io/github/issues/Zaheer-10/PaperMate-RecSys.svg)](https://github.com/Zaheer-10/PaperMate-RecSys/issues)
 ![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/Zaheer-10/PaperMate-RecSys)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
@@ -143,7 +140,7 @@ pip install -r requirements.txt
 ```bash
 cd PaperMate_ui
 ```
-#### Configure settings.py to connect to your PostgreSQL database
+#### Configure settings.py to connect to your PostgreSQL  database
 
 ```bash
 run `python manage.py fetch_arxiv_data.py` or else do it in jupyter notebook and save csv file.
@@ -151,7 +148,7 @@ run `python manage.py fetch_arxiv_data.py` or else do it in jupyter notebook and
 #### Populate the database with data
 
 ```bash
-python manage.py populate_data.py
+python manage.py populate_data.py 
 ```
 #### Generate embeddings
 ```bash
@@ -183,7 +180,9 @@ Continual improvements might include:
 - [ ] Adding more data sources.
 - [ ] Adding new menu to select which sentence transformer to use.
 - [ ] Building a Docker image for the app and deploy it on Docker Hub.
-- [ ] Finishing writing the project report.
+- [x] Finishing writing the project report.
+- [ ] Complete deployement of `v2.0`
+
 
 ## Acknowledgments
 
@@ -198,9 +197,9 @@ Thank you for embarking on this journey with us.
 Discover, Engage, Illuminate—Welcome to PaperMate.
 
 <p align="center">
-  Want to experience the magic of PaperMate? Visit our website!
+ <pre align = 'center'> Want to experience the magic of PaperMate? Visit our website!Lighter Version</pre>
   <br>
-  <a href="Website_URL">
+  <a href="http://papermate.online/">
     <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/PaperMate_animated.gif" alt="Visit Website" width="150">
   </a>
 </p>
