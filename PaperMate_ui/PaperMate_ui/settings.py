@@ -79,17 +79,6 @@ TEMPLATES = [
 WSGI_APPLICATION = "PaperMate_ui.wsgi.application"
 
 
-# Database
-# https://docs.djangoproject.com/en/4.2/ref/settings/#databases
-
-# DATABASES = {
-#     "default": {
-#         "ENGINE": "django.db.backends.sqlite3",
-#         "NAME": BASE_DIR / "db.sqlite3",
-#     }
-# }
-
-
 # DATABASES = {
 #     'default': {
 #         'ENGINE': 'django.db.backends.postgresql',
@@ -101,19 +90,6 @@ WSGI_APPLICATION = "PaperMate_ui.wsgi.application"
 #     }
 # }
 
-
-# Database settings
-# DATABASES = {
-#     'default': {
-#         'ENGINE': 'django.db.backends.postgresql',
-#         'NAME': os.environ.get('DB_NAME', 'default_db_name'),
-#         'USER': os.environ.get('DB_USER', 'default_db_user'),
-#         'PASSWORD': os.environ.get('DB_PASSWORD', 'default_db_password'),
-#         'HOST': 'localhost',
-#         'PORT': '5432',
-#     }
-# }
-# DB_HOST = os.environ.get('HOST', 'localhost')
 
 
 # Database settings
