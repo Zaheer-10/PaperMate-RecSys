@@ -197,11 +197,7 @@ Thank you for embarking on this journey with us.
 Discover, Engage, Illuminate—Welcome to PaperMate.
 
 <p align="center">
- <pre align = 'center'> Want to experience the magic of PaperMate? Visit our website!Lighter Version</pre>
-  <br>
-  <a href="http://papermate.online/">
-    <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/PaperMate_animated.gif" alt="Visit Website" width="150">
-  </a>
+ <pre align = 'center' > Want to experience the magic of PaperMate? Visit our website!Lighter Version <a href="http://papermate.online/">Click Here</pre>
 </p>
 
 <hr>
