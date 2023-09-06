@@ -26,11 +26,19 @@ The main problem is that there’s so much research out there that it’s hard t
 
 <div align="center">
     <h2>YEARLY PAPER PUBLICATION ON ARXIV</h2>
-    <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/monthly_submission.png" alt="Paper 1" width="400">
-    <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/count.png" alt="Paper 2" width="400">
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/monthly_submission.png" alt="Paper 1" width="400">
+    </td>
+    <td align="center">
+      <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/count.png" alt="Paper 2" width="400">
+    </td>
+  </tr>
+</table>
 </div>
 
-### Identifying the Machine Learning Problem
+## Identifying the Machine Learning Problem
 
 Our main challenge is to recommend research papers that suit a user’s interests. It’s like a puzzle: finding papers that match what the user wants to learn. This involves using natural language processing (NLP) to compare the content of papers and user preferences.
 
