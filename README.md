@@ -112,6 +112,70 @@ PaperMate's architecture encompasses several essential components to create a se
 
 The project report is available [here](). It provides a detailed explanation of the methodologies used, results obtained, and conclusions drawn from this project.
 
+## Making Sense of It All: A User's Guide to this GitHub Repository
+
+
+
+#### Open your termial (conda)
+
+#### Clone the repo and replace your folder name with 'test_mate'
+```bash
+git lfs clone https://github.com/Zaheer-10/PaperMate-RecSys.git test_mate
+```
+
+```bash
+cd test_mate
+```
+#### Create a Conda environment for PaperMate
+```bash
+conda create -n tmate python==3.10 -y
+```
+#### Activate env
+```bash
+conda activate tmate
+```
+#### Install required Python packages
+```bash
+pip install -r requirements.txt
+
+```
+
+```bash
+cd PaperMate_ui
+```
+#### Configure settings.py to connect to your PostgreSQL database
+
+```bash
+run `python manage.py fetch_arxiv_data.py` or else do it in jupyter notebook and save csv file.
+```
+#### Populate the database with data
+
+```bash
+python manage.py populate_data.py
+```
+#### Generate embeddings
+```bash
+python manage.py generate_embeddings.py
+
+```
+#### Apply database migrations
+```bash
+python manage.py makemigrations
+python manage.py migrate
+```
+
+#### Create a superuser for the admin panel
+```bash
+python manage.py createsuperuser
+```
+#### Run the PaperMate server
+
+```bash
+python manage.py runserver
+```
+##### Note : It may take some amount of time intially , make sure your connected to the valid internet connection.
+
+
 ## Future Possibilities
 
 Continual improvements might include:
@@ -132,7 +196,6 @@ In conclusion, PaperMate is not just a project—it's a transformational tool th
 Thank you for embarking on this journey with us.
 
 Discover, Engage, Illuminate—Welcome to PaperMate.
-
 
 <p align="center">
   Want to experience the magic of PaperMate? Visit our website!
