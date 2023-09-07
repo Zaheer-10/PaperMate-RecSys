@@ -4,7 +4,6 @@
 
 &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;
 ![Python](https://img.shields.io/badge/python-v3.10.8-blue.svg)
-![GitHub commit activity (branch)](https://img.shields.io/github/commit-activity/m/Zaheer-10/PaperMate-RecSys)
 ![Contributions welcome](https://img.shields.io/badge/contributions-welcome-orange.svg)
 [![License](https://img.shields.io/badge/license-MIT-blue.svg)](https://opensource.org/licenses/MIT)
 ![](https://img.shields.io/github/stars/Zaheer-10/PaperMate-RecSys.svg) 
@@ -26,11 +25,19 @@ The main problem is that there’s so much research out there that it’s hard t
 
 <div align="center">
     <h2>YEARLY PAPER PUBLICATION ON ARXIV</h2>
-    <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/monthly_submission.png" alt="Paper 1" width="400">
-    <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/count.png" alt="Paper 2" width="400">
+<table>
+  <tr>
+    <td align="center">
+      <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/monthly_submission.png" alt="Paper 1" width="400">
+    </td>
+    <td align="center">
+      <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/count.png" alt="Paper 2" width="400">
+    </td>
+  </tr>
+</table>
 </div>
 
-### Identifying the Machine Learning Problem
+## Identifying the Machine Learning Problem
 
 Our main challenge is to recommend research papers that suit a user’s interests. It’s like a puzzle: finding papers that match what the user wants to learn. This involves using natural language processing (NLP) to compare the content of papers and user preferences.
 
@@ -197,11 +204,7 @@ Thank you for embarking on this journey with us.
 Discover, Engage, Illuminate—Welcome to PaperMate.
 
 <p align="center">
- <pre align = 'center'> Want to experience the magic of PaperMate? Visit our website!Lighter Version</pre>
-  <br>
-  <a href="http://papermate.online/">
-    <img src="https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/Images/PaperMate_animated.gif" alt="Visit Website" width="150">
-  </a>
+ <pre align = 'center' > Want to experience the magic of PaperMate? Visit our website!Lighter Version <a href="http://papermate.online/">Click Here</pre>
 </p>
 
 <hr>
