@@ -38,7 +38,6 @@ The main problem is that there’s so much research out there that it’s hard t
 </div>
 
 ## Identifying the Machine Learning Problem
-
 Our main challenge is to recommend research papers that suit a user’s interests. It’s like a puzzle: finding papers that match what the user wants to learn. This involves using natural language processing (NLP) to compare the content of papers and user preferences.
 
 But we go beyond recommendations. With NLP and machine learning, we enable question answering – users can ask questions about a paper’s content, and the system answers. Summarization is also part of our solution, shrinking long papers into short summaries. NLP and ML work together to create a more interactive, efficient, and insightful research experience.
@@ -78,7 +77,6 @@ PaperMate's architecture encompasses several essential components to create a se
 - Summarization and QA Models: Integration of the MBZUAI/LaMini-Flan-T5-248M summarization model and ggml-gpt4all-j-v1.3-groovy question answering model enriches the user journey with concise summaries and insightful paper interactions.
 
 ## Behind the Scenes: How PaperMate Operates
-
 <table>
   <tr>
     <td align="center">
@@ -113,12 +111,9 @@ PaperMate's architecture encompasses several essential components to create a se
 </table>
 
 ## Report
-
 The project report is available [here](https://github.com/Zaheer-10/PaperMate-RecSys/blob/main/PM_Resources/PaperMate_Report.pdf). It provides a detailed explanation of the methodologies used, results obtained, and conclusions drawn from this project.
 
 ## Making Sense of It All: A User's Guide to this GitHub Repository
-
-
 
 #### Open your termial (conda)
 
