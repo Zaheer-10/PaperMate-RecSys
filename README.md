@@ -195,11 +195,9 @@ I would like to extend my gratitude to arXiv for generously providing open acces
 In conclusion, PaperMate is not just a project—it's a transformational tool that democratizes knowledge, redefines research, and empowers individuals to navigate the intricate corridors of academia with confidence and curiosity. The journey is ongoing, and as we continue to innovate and iterate, PaperMate remains dedicated to propelling us into a brighter and more insightful future.
 
 Thank you for embarking on this journey with us.
-
 Discover, Engage, Illuminate—Welcome to PaperMate.
 
 <p align="center">
  <pre align = 'center' > Want to experience the magic of PaperMate? Visit our website!Lighter Version <a href="http://papermate.online/">Click Here</pre>
 </p>
-
 <hr>
